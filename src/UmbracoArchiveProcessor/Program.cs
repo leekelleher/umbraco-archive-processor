@@ -61,14 +61,12 @@ namespace UmbracoArchiveProcessor
 			{
 				var filepath = Path.Combine(target_path, filename);
 				var uri = new Uri(string.Format("http://umbracoreleases.blob.core.windows.net/download/UmbracoCms.{0}.zip", umbraco_version));
-				var currentCursorTop = Console.CursorTop;
 
 				client.DownloadProgressChanged += (s, e) =>
 				{
 					lock (_object)
 					{
-						Console.SetCursorPosition(0, currentCursorTop);
-						Console.Write("{0} downloaded {1} of {2} bytes. {3}% complete...",
+						Console.WriteLine("{0} downloaded {1} of {2} bytes. {3}% complete...",
 							((TaskCompletionSource<object>)e.UserState).Task.AsyncState,
 							e.BytesReceived,
 							e.TotalBytesToReceive,
