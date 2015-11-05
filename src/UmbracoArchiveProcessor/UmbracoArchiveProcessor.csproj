@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Models\UmbracoArchiveModel.cs" />
     <Compile Include="Models\UmbracoArchiveRelease.cs" />
+    <Compile Include="Models\UmbracoAssemblyVersion.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

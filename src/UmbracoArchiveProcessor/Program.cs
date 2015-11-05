@@ -10,6 +10,8 @@ using ZipDiff.Core;
 using ZipHash.Core;
 using System.Linq;
 using ICSharpCode.SharpZipLib.Zip;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace UmbracoArchiveProcessor
 {
@@ -36,9 +38,11 @@ namespace UmbracoArchiveProcessor
 
 			UpdateArchiveData(target_dir);
 
-			// get previous version
+			GetUmbracoAssemblyVersions(target_dir);
 
 			MoveToArtifactsDirectory(target_dir);
+
+			// get previous version
 		}
 
 		static string GetLatestUmbracoVersionNumber()
@@ -173,6 +177,78 @@ namespace UmbracoArchiveProcessor
 
 			// latest version number - plain text
 			File.WriteAllText(path2.Replace(".json", string.Empty), latest.Version);
+		}
+
+		static string ConvertHash(byte[] hash)
+		{
+			return BitConverter
+				.ToString(hash)
+				.Replace("-", string.Empty)
+				.ToLower();
+		}
+
+		static byte[] ReadFully(Stream input)
+		{
+			byte[] buffer = new byte[16 * 1024];
+			using (MemoryStream ms = new MemoryStream())
+			{
+				int read;
+				while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+				{
+					ms.Write(buffer, 0, read);
+				}
+				return ms.ToArray();
+			}
+		}
+
+		static void GetUmbracoAssemblyVersions(DirectoryInfo target_dir, string pattern = "UmbracoCms.*.zip", SearchOption searchOption = SearchOption.TopDirectoryOnly)
+		{
+			var files = target_dir.GetFiles(pattern, searchOption);
+			foreach (var file in files)
+			{
+				var zipFile = new ZipFile(file.OpenRead());
+				var md5 = MD5.Create();
+				var list = new List<UmbracoAssemblyVersion>();
+
+				foreach (var entry in zipFile.Cast<ZipEntry>())
+				{
+					if (entry.Name.Contains("bin") && entry.Name.EndsWith(".dll") && (!entry.Name.Contains("amd64") && !entry.Name.Contains("x86")))
+					{
+						var fileName = Path.GetFileName(entry.Name);
+
+						using (var stream = zipFile.GetInputStream(entry))
+						{
+							var bytes = ReadFully(stream);
+							var hash = ConvertHash(md5.ComputeHash(bytes));
+
+							try
+							{
+								var assembly = Assembly.Load(bytes);
+								var assemblyName = assembly.GetName();
+								var umbracoVersion = file.Name.Replace("UmbracoCms.", string.Empty).Replace(".zip", string.Empty);
+
+								list.Add(new UmbracoAssemblyVersion
+								{
+									AssemblyName = assemblyName.Name,
+									AssemblyVersion = assemblyName.Version.ToString(),
+									FileSize = bytes.Length,
+									MD5Hash = hash,
+									UmbracoVersion = umbracoVersion
+								});
+							}
+							catch (Exception)
+							{
+								Console.WriteLine("---- Unable to load '{0}'", fileName);
+							}
+						}
+					}
+				}
+
+				zipFile.Close();
+
+				var json = JsonConvert.SerializeObject(list, Formatting.Indented);
+				File.WriteAllText(file.FullName.Replace(".zip", ".AssemblyVersions.json"), json);
+			}
 		}
 
 		static void MoveToArtifactsDirectory(DirectoryInfo target_dir, string pattern = "UmbracoCms.*.zip", SearchOption searchOption = SearchOption.TopDirectoryOnly)
