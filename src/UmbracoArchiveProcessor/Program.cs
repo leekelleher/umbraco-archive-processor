@@ -36,7 +36,7 @@ namespace UmbracoArchiveProcessor
 
 			var data_path = Path.Combine(current_dir, "data");
 			var data_dir = new DirectoryInfo(target_path);
-			if (!data_dir.Exists)
+			if (data_dir.Exists)
 				UpdateArchiveData(data_dir);
 
 			// get previous version
@@ -103,6 +103,8 @@ namespace UmbracoArchiveProcessor
 			{
 				var gen = new HashGenerator(file.FullName, new HashAlgorithm[] { MD5.Create() });
 				gen.GenerateHashes();
+
+				Console.WriteLine("Generated hash for: {0}", file.Name);
 			}
 		}
 
