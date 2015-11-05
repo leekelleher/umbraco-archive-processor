@@ -1,5 +1,7 @@
 # Umbraco Archive Processor
 
+[![Build status](https://ci.appveyor.com/api/projects/status/ii3pyas8dkh49j2d?svg=true)](https://ci.appveyor.com/project/leekelleher/umbraco-archive-processor)
+
 [Work In Progress]
 
 ## Nothing to see here, move along!
