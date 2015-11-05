@@ -1,8 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
+using ZipDiff.Core;
+using ZipHash.Core;
 
 namespace UmbracoArchiveProcessor
 {
@@ -25,7 +28,9 @@ namespace UmbracoArchiveProcessor
 			if (!string.IsNullOrWhiteSpace(umbraco_version))
 				DownloadUmbracoReleaseArchive(umbraco_version, target_path);
 
-			Console.WriteLine(umbraco_version);
+			GenerateHashes(target_dir);
+
+			// get previous version
 		}
 
 		static string GetLatestUmbracoVersionNumber()
@@ -80,6 +85,16 @@ namespace UmbracoArchiveProcessor
 			}
 
 			Console.WriteLine("\n\rDownload complete.");
+		}
+
+		private static void GenerateHashes(DirectoryInfo target_dir, string pattern = "UmbracoCms.*.zip", SearchOption searchOption = SearchOption.TopDirectoryOnly)
+		{
+			var files = target_dir.GetFiles(pattern, searchOption);
+			foreach (var file in files)
+			{
+				var gen = new HashGenerator(file.FullName, new HashAlgorithm[] { MD5.Create() });
+				gen.GenerateHashes();
+			}
 		}
 	}
 }

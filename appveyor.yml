@@ -9,6 +9,7 @@ configuration: Release
 
 build:
   project: src\UmbracoArchiveProcessor.sln
+  verbosity: minimal
 
 # scripts to run before build
 before_build:
@@ -22,5 +23,6 @@ after_build:
 test: off
 
 artifacts:
+  - path: artifacts\*.md5
   - path: artifacts\*.zip
 
