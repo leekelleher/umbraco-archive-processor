@@ -1,4 +1,15 @@
+# version format
 version: 1.0.{build}
 
-build_script:
-- build.cmd
+# fetch repository as zip archive
+shallow_clone: true 
+
+# build Configuration, i.e. Debug, Release, etc.
+configuration: Release
+
+build:
+  project: src\UmbracoArchiveProcessor.sln
+
+# scripts to run after build
+after_build:
+  cmd: src\UmbracoArchiveProcessor\bin\Release\uap.exe
