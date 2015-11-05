@@ -10,6 +10,10 @@ configuration: Release
 build:
   project: src\UmbracoArchiveProcessor.sln
 
+# scripts to run before build
+before_build:
+  nuget restore src\UmbracoArchiveProcessor.sln
+  
 # scripts to run after build
 after_build:
   cmd: src\UmbracoArchiveProcessor\bin\Release\uap.exe
