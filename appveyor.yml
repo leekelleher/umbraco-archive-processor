@@ -24,6 +24,3 @@ test: off
 
 artifacts:
   - path: artifacts\*.*
-  - path: data\*.json
-  - path: data\latest
-

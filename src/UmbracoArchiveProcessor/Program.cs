@@ -40,7 +40,7 @@ namespace UmbracoArchiveProcessor
 
 			GetUmbracoAssemblyVersions(target_dir);
 
-			MoveToArtifactsDirectory(target_dir);
+			MoveToVersionDirectory(umbraco_version, target_dir);
 
 			// get previous version
 		}
@@ -169,9 +169,12 @@ namespace UmbracoArchiveProcessor
 			var output = JsonConvert.SerializeObject(model, Formatting.Indented);
 			File.WriteAllText(path, output);
 
+			var path1 = path.Replace("releases.json", "..\\artifacts\\releases.json");
+			File.WriteAllText(path1, output);
+
 			// create stub for latest release version
 			var latest = model.Releases.Last();
-			var path2 = path.Replace("releases.json", "latest.json");
+			var path2 = path1.Replace("releases.json", "latest.json");
 			var output2 = JsonConvert.SerializeObject(latest, Formatting.Indented);
 			File.WriteAllText(path2, output2);
 
@@ -251,13 +254,13 @@ namespace UmbracoArchiveProcessor
 			}
 		}
 
-		static void MoveToArtifactsDirectory(DirectoryInfo target_dir, string pattern = "UmbracoCms.*.zip", SearchOption searchOption = SearchOption.TopDirectoryOnly)
+		static void MoveToVersionDirectory(string umbraco_version, DirectoryInfo target_dir, string pattern = "UmbracoCms.*.zip", SearchOption searchOption = SearchOption.TopDirectoryOnly)
 		{
 			var files = target_dir.GetFiles(pattern, searchOption);
 
 			foreach (var file in files)
 			{
-				var artifacts_dir = new DirectoryInfo(Path.Combine(target_dir.FullName, "..", "artifacts"));
+				var artifacts_dir = new DirectoryInfo(Path.Combine(target_dir.FullName, "..", "artifacts", umbraco_version));
 
 				if (!artifacts_dir.Exists)
 					artifacts_dir.Create();
