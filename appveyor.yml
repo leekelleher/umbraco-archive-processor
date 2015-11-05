@@ -23,6 +23,7 @@ after_build:
 test: off
 
 artifacts:
-  - path: artifacts\*.md5
-  - path: artifacts\*.zip
+  - path: artifacts\*.*
+  - path: data\*.json
+  - path: data\latest
 
