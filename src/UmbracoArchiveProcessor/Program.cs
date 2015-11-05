@@ -21,7 +21,7 @@ namespace UmbracoArchiveProcessor
 		{
 			var current_dir = Environment.CurrentDirectory;
 
-			var target_path = Path.Combine(current_dir, "artifacts");
+			var target_path = Path.Combine(current_dir, "_temp");
 			var target_dir = new DirectoryInfo(target_path);
 
 			if (!target_dir.Exists)
@@ -34,12 +34,11 @@ namespace UmbracoArchiveProcessor
 
 			GenerateHashes(target_dir);
 
-			var data_path = Path.Combine(current_dir, "data");
-			var data_dir = new DirectoryInfo(target_path);
-			if (data_dir.Exists)
-				UpdateArchiveData(data_dir);
+			UpdateArchiveData(target_dir);
 
 			// get previous version
+
+			MoveToArtifactsDirectory(target_dir);
 		}
 
 		static string GetLatestUmbracoVersionNumber()
@@ -93,7 +92,7 @@ namespace UmbracoArchiveProcessor
 				task.Wait();
 			}
 
-			Console.WriteLine("\n\rDownload complete.");
+			Console.WriteLine("Download complete.");
 		}
 
 		static void GenerateHashes(DirectoryInfo target_dir, string pattern = "UmbracoCms.*.zip", SearchOption searchOption = SearchOption.TopDirectoryOnly)
@@ -108,9 +107,8 @@ namespace UmbracoArchiveProcessor
 			}
 		}
 
-		static UmbracoArchiveModel GetUmbracoArchiveModel(DirectoryInfo target_dir, string filename = "releases.json")
+		static UmbracoArchiveModel GetUmbracoArchiveModel(string path)
 		{
-			var path = Path.Combine(target_dir.FullName, "releases.json");
 			var input = File.Exists(path) ? File.ReadAllText(path) : "{ \"releases\": [ ] }";
 			return JsonConvert.DeserializeObject<UmbracoArchiveModel>(input);
 		}
@@ -132,8 +130,8 @@ namespace UmbracoArchiveProcessor
 
 		static void UpdateArchiveData(DirectoryInfo target_dir, string pattern = "UmbracoCms.*.zip", SearchOption searchOption = SearchOption.TopDirectoryOnly)
 		{
-			var path = Path.Combine(target_dir.FullName, "releases.json");
-			var model = GetUmbracoArchiveModel(target_dir);
+			var path = Path.Combine(target_dir.FullName, "..", "data", "releases.json");
+			var model = GetUmbracoArchiveModel(path);
 
 			var files = target_dir.GetFiles(pattern, searchOption);
 			foreach (var file in files)
@@ -175,6 +173,26 @@ namespace UmbracoArchiveProcessor
 
 			// latest version number - plain text
 			File.WriteAllText(path2.Replace(".json", string.Empty), latest.Version);
+		}
+
+		static void MoveToArtifactsDirectory(DirectoryInfo target_dir, string pattern = "UmbracoCms.*.zip", SearchOption searchOption = SearchOption.TopDirectoryOnly)
+		{
+			var files = target_dir.GetFiles(pattern, searchOption);
+
+			foreach (var file in files)
+			{
+				var artifacts_dir = new DirectoryInfo(Path.Combine(target_dir.FullName, "..", "artifacts"));
+
+				if (!artifacts_dir.Exists)
+					artifacts_dir.Create();
+
+				var associatedFiles = target_dir.GetFiles(file.Name.Replace(".zip", ".*"), searchOption);
+
+				foreach (var associatedFile in associatedFiles)
+				{
+					associatedFile.MoveTo(Path.Combine(artifacts_dir.FullName, associatedFile.Name));
+				}
+			}
 		}
 	}
 }
