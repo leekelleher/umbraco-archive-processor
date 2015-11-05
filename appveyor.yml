@@ -17,3 +17,10 @@ before_build:
 # scripts to run after build
 after_build:
   cmd: src\UmbracoArchiveProcessor\bin\Release\uap.exe
+
+# to disable automatic tests 
+test: off
+
+artifacts:
+  - path: artifacts\*.zip
+
