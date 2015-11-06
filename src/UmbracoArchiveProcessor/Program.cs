@@ -275,7 +275,7 @@ namespace UmbracoArchiveProcessor
 			var builders = new Dictionary<string, IBuilder>()
 			{
 				{ "html", new HtmlBuilder() },
-				{ "xml", new XmlBuilder() },
+				{ "xml", new XmlBuilder2() },
 				{ "txt", new TextBuilder() },
 				{ "zip", new ZipBuilder() }
 			};
@@ -289,8 +289,8 @@ namespace UmbracoArchiveProcessor
 
 			Console.WriteLine("{0} - {1}", a.Version, b.Version);
 
-			var file1 = new FileInfo(Path.Combine(target_dir.FullName, a.Version, a.FileName));
-			var file2 = new FileInfo(Path.Combine(target_dir.FullName, b.Version, b.FileName));
+			var file1 = new FileInfo(Path.Combine(target_dir.FullName, a.FileName));
+			var file2 = new FileInfo(Path.Combine(target_dir.FullName, b.FileName));
 
 			var calc = new DifferenceCalculator(file1, file2)
 			{
