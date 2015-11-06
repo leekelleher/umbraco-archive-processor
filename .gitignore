@@ -1,1 +1,13 @@
+_ReSharper.*
+[Bb]in/
+[Oo]bj/
+*.suo
+*.user
+*.userprefs
+*.cache
+*.orig
+Thumbs.db
+.DS_Store
+
+artifacts/
 src/packages/*/**
