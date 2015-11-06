@@ -40,7 +40,7 @@ deploy:
     secure: 9aI0ok+tlzT7fSVots8zIQ==
   folder:
     secure: itdVLgeEuHkC6J8R8OTU04wkS8a1G/0OvARdkVtsftoa8YdNOAZamjm4vUtNmZzQ
-  artifact:
+  artifact: artifacts\**\*
 
 #on_success:
 #  - git config --global credential.helper store
