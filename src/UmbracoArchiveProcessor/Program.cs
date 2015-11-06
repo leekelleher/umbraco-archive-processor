@@ -1,17 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Security.Cryptography;
-using System.Threading.Tasks;
 using HtmlAgilityPack;
+using ICSharpCode.SharpZipLib.Zip;
 using Newtonsoft.Json;
 using UmbracoArchiveProcessor.Models;
 using ZipDiff.Core;
+using ZipDiff.Core.Output;
 using ZipHash.Core;
-using System.Linq;
-using ICSharpCode.SharpZipLib.Zip;
-using System.Collections.Generic;
-using System.Reflection;
 
 namespace UmbracoArchiveProcessor
 {
@@ -46,9 +46,11 @@ namespace UmbracoArchiveProcessor
 
 			GetUmbracoAssemblyVersions(target_dir);
 
+			GenerateDiffPatches(target_dir);
+
 			MoveToVersionDirectory(umbraco_version, target_dir);
 
-			// get previous version
+			Console.WriteLine("\n\rThank you and goodnight!");
 		}
 
 		static string GetLatestUmbracoVersionNumber()
@@ -258,6 +260,59 @@ namespace UmbracoArchiveProcessor
 				var json = JsonConvert.SerializeObject(list, Formatting.Indented);
 				File.WriteAllText(file.FullName.Replace(".zip", ".AssemblyVersions.json"), json);
 			}
+		}
+
+		private static void GenerateDiffPatches(DirectoryInfo target_dir)
+		{
+			var path = Path.Combine(target_dir.FullName, "..", "data", "releases.json");
+			var model = GetUmbracoArchiveModel(path);
+			var releases = model.Releases;
+
+			var patch_dir = Path.Combine(target_dir.FullName, "artifacts", "patches");
+			if (!Directory.Exists(patch_dir))
+				Directory.CreateDirectory(patch_dir);
+
+			var builders = new Dictionary<string, IBuilder>()
+			{
+				{ "html", new HtmlBuilder() },
+				{ "xml", new XmlBuilder() },
+				{ "txt", new TextBuilder() },
+				{ "zip", new ZipBuilder() }
+			};
+
+			var a = releases[releases.Count - 2];
+
+			if (File.Exists(Path.Combine(target_dir.FullName, a.FileName)))
+				DownloadUmbracoReleaseArchive(a.Version, target_dir.FullName);
+
+			var b = releases[releases.Count - 1];
+
+			Console.WriteLine("{0} - {1}", a.Version, b.Version);
+
+			var file1 = new FileInfo(Path.Combine(target_dir.FullName, a.Version, a.FileName));
+			var file2 = new FileInfo(Path.Combine(target_dir.FullName, b.Version, b.FileName));
+
+			var calc = new DifferenceCalculator(file1, file2)
+			{
+				CompareCrcValues = true,
+				CompareTimestamps = false,
+				IgnoreCase = true
+			};
+
+			var diffs = calc.GetDifferences();
+
+			foreach (var item in builders)
+			{
+				var patch_name = string.Format("UmbracoCms.{0}-{1}.{2}", a.Version, b.Version, item.Key);
+				var patch_file = Path.Combine(patch_dir, patch_name);
+
+				if (!File.Exists(patch_file))
+					item.Value.Build(patch_file, diffs);
+			}
+
+			Console.WriteLine(diffs);
+
+			Console.WriteLine("Finished generating diff patches.");
 		}
 
 		static void MoveToVersionDirectory(string umbraco_version, DirectoryInfo target_dir, string pattern = "UmbracoCms.*.zip", SearchOption searchOption = SearchOption.TopDirectoryOnly)
