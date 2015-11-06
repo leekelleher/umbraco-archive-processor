@@ -29,6 +29,19 @@ test: off
 artifacts:
   - path: artifacts\**\*
 
+deploy:
+  provider: FTP
+  protocol: sftp
+  host:
+    secure: nq7K4A9kQeSJ5/qrA1SL+uwuBKVmqIWtSygU3Z3iLjg=
+  username:
+    secure: tfL7blohLyft9yGHzsMVMg==
+  password:
+    secure: 9aI0ok+tlzT7fSVots8zIQ==
+  folder:
+    secure: o0ZdkUcM8vRmyFW+QvRT5DghZkrOIsXuvOVrKbsFHO5zuIzb8fKDIVv9NG7h5f7GZBRDza4A54atTT8cg9yfqQ==
+  artifact:
+
 on_success:
   - git config --global credential.helper store
   - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
