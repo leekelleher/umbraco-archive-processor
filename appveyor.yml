@@ -1,8 +1,12 @@
 # version format
 version: 1.0.{build}
 
-# fetch repository as zip archive
-shallow_clone: true 
+# set clone depth
+clone_depth: 5
+
+environment:
+  access_token:
+    secure: pEozEGTqJutQwOidJU6BTB+Ix0NV4vrUnomhfeqheVz4RNwfxjEYLoqR4XabhlPz
 
 # build Configuration, i.e. Debug, Release, etc.
 configuration: Release
@@ -24,3 +28,11 @@ test: off
 
 artifacts:
   - path: artifacts\**\*
+
+on_success:
+  - git config --global credential.helper store
+  - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+  - git config --global user.email "leekelleher@gmail.com"
+  - git config --global user.name "leekelleher"
+  - git commit -m "Updated releases.config [skip ci]"
+  - git push origin master

@@ -170,6 +170,8 @@ namespace UmbracoArchiveProcessor
 				};
 
 				model.Releases.Add(release);
+
+				Console.WriteLine("Added '{0}' to the releases.", umbracoVersion);
 			}
 
 			model.Releases.Sort((t1, t2) => new Version(t1.Version).CompareTo(new Version(t2.Version)));
