@@ -23,11 +23,17 @@ namespace UmbracoArchiveProcessor
 		{
 			var current_dir = Environment.CurrentDirectory;
 
-			var target_path = Path.Combine(current_dir, "_temp");
+			var target_path = Path.Combine(current_dir, "_tmp");
 			var target_dir = new DirectoryInfo(target_path);
 
 			if (!target_dir.Exists)
 				target_dir.Create();
+
+			var artifacts_path = Path.Combine(current_dir, "artifacts");
+			var artifacts_dir = new DirectoryInfo(artifacts_path);
+
+			if (!artifacts_dir.Exists)
+				artifacts_dir.Create();
 
 			var umbraco_version = GetLatestUmbracoVersionNumber();
 
@@ -260,16 +266,17 @@ namespace UmbracoArchiveProcessor
 
 			foreach (var file in files)
 			{
-				var artifacts_dir = new DirectoryInfo(Path.Combine(target_dir.FullName, "..", "artifacts", umbraco_version));
+				var version_path = Path.Combine(target_dir.FullName, "..", "artifacts", umbraco_version);
+				var version_dir = new DirectoryInfo(version_path);
 
-				if (!artifacts_dir.Exists)
-					artifacts_dir.Create();
+				if (!version_dir.Exists)
+					version_dir.Create();
 
 				var associatedFiles = target_dir.GetFiles(file.Name.Replace(".zip", ".*"), searchOption);
 
 				foreach (var associatedFile in associatedFiles)
 				{
-					associatedFile.MoveTo(Path.Combine(artifacts_dir.FullName, associatedFile.Name));
+					associatedFile.MoveTo(Path.Combine(version_dir.FullName, associatedFile.Name));
 				}
 			}
 		}
