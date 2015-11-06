@@ -268,7 +268,7 @@ namespace UmbracoArchiveProcessor
 			var model = GetUmbracoArchiveModel(path);
 			var releases = model.Releases;
 
-			var patch_dir = Path.Combine(target_dir.FullName, "artifacts", "patches");
+			var patch_dir = Path.Combine(target_dir.FullName, "..", "artifacts", "patches");
 			if (!Directory.Exists(patch_dir))
 				Directory.CreateDirectory(patch_dir);
 
@@ -283,11 +283,14 @@ namespace UmbracoArchiveProcessor
 			var a = releases[releases.Count - 2];
 
 			if (!File.Exists(Path.Combine(target_dir.FullName, a.FileName)))
+			{
+				Console.WriteLine("Could not find '{0}' on disk; downloading.", a.Version);
 				DownloadUmbracoReleaseArchive(a.Version, target_dir.FullName);
+			}
 
 			var b = releases[releases.Count - 1];
 
-			Console.WriteLine("{0} - {1}", a.Version, b.Version);
+			Console.WriteLine("Comparing the differences between: {0} - {1}", a.Version, b.Version);
 
 			var file1 = new FileInfo(Path.Combine(target_dir.FullName, a.FileName));
 			var file2 = new FileInfo(Path.Combine(target_dir.FullName, b.FileName));
@@ -311,6 +314,8 @@ namespace UmbracoArchiveProcessor
 			}
 
 			Console.WriteLine(diffs);
+
+			File.Delete(Path.Combine(target_dir.FullName, a.FileName));
 
 			Console.WriteLine("Finished generating diff patches.");
 		}
