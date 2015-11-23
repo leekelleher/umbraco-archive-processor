@@ -8,7 +8,7 @@ branches:
     - master
 
 # set clone depth
-clone_depth: 5
+#clone_depth: 5
 
 environment:
   access_token:
@@ -56,4 +56,4 @@ on_success:
   - git checkout develop
   - git add data/releases.json
   - git commit -m "Updated releases.config [skip ci]"
-  - git push origin master
+  - git push origin develop
