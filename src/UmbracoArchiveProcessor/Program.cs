@@ -37,8 +37,19 @@ namespace UmbracoArchiveProcessor
 
 			var umbraco_version = GetLatestUmbracoVersionNumber();
 
-			if (!string.IsNullOrWhiteSpace(umbraco_version))
-				DownloadUmbracoReleaseArchive(umbraco_version, target_path);
+			if (string.IsNullOrWhiteSpace(umbraco_version))
+			{
+				Console.WriteLine("Unable to get the latest Umbraco version number.");
+				Environment.Exit(2);
+			}
+
+			if (HasUmbracoReleaseAlreadyProcessed(umbraco_version, target_dir))
+			{
+				Console.WriteLine("Umbraco version has already been processed.");
+				Environment.Exit(2);
+			}
+
+			DownloadUmbracoReleaseArchive(umbraco_version, target_path);
 
 			GenerateHashes(target_dir);
 
@@ -68,6 +79,14 @@ namespace UmbracoArchiveProcessor
 			Console.WriteLine("Latest Umbraco version number: {0}", version_number);
 
 			return version_number;
+		}
+
+		static bool HasUmbracoReleaseAlreadyProcessed(string umbraco_version, DirectoryInfo target_dir)
+		{
+			var path = Path.Combine(target_dir.FullName, "..", "data", "releases.json");
+			var model = GetUmbracoArchiveModel(path);
+
+			return model.Releases.Any(x => x.Version == umbraco_version);
 		}
 
 		static void DownloadUmbracoReleaseArchive(string umbraco_version, string target_path)
@@ -121,8 +140,11 @@ namespace UmbracoArchiveProcessor
 
 		static UmbracoArchiveModel GetUmbracoArchiveModel(string path)
 		{
-			var input = File.Exists(path) ? File.ReadAllText(path) : "{ \"releases\": [ ] }";
-			return JsonConvert.DeserializeObject<UmbracoArchiveModel>(input);
+			lock (_object)
+			{
+				var input = File.Exists(path) ? File.ReadAllText(path) : "{ \"releases\": [ ] }";
+				return JsonConvert.DeserializeObject<UmbracoArchiveModel>(input);
+			}
 		}
 
 		static DateTime GetDateTimeForZip(FileInfo file)
@@ -264,7 +286,7 @@ namespace UmbracoArchiveProcessor
 			}
 		}
 
-		private static void GenerateDiffPatches(DirectoryInfo target_dir)
+		static void GenerateDiffPatches(DirectoryInfo target_dir)
 		{
 			var path = Path.Combine(target_dir.FullName, "..", "data", "releases.json");
 			var model = GetUmbracoArchiveModel(path);

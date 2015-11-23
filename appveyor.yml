@@ -8,7 +8,7 @@ branches:
     - master
 
 # set clone depth
-clone_depth: 5
+#clone_depth: 5
 
 environment:
   access_token:
@@ -48,12 +48,14 @@ deploy:
     secure: itdVLgeEuHkC6J8R8OTU04wkS8a1G/0OvARdkVtsftoa8YdNOAZamjm4vUtNmZzQ
   artifact:
 
-#on_success:
-#  - git config --global credential.helper store
-#  - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
-#  - git config --global user.email "leekelleher@gmail.com"
-#  - git config --global user.name "leekelleher"
-#  - git checkout develop
-#  - git add data/releases.json
-#  - git commit -m "Updated releases.config [skip ci]"
-#  - git push origin master
+on_success:
+  - git config --global credential.helper store
+  - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+  - git config --global user.email "leekelleher@gmail.com"
+  - git config --global user.name "leekelleher"
+  - git stash
+  - git checkout develop
+  - git stash pop
+  - git add data/releases.json
+  - git commit -m "Updated releases.config [skip ci]"
+  - git push origin develop

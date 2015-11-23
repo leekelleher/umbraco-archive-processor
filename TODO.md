@@ -7,7 +7,10 @@ When a new Umbraco version is released...
 * [x] Extract assembly version numbers (along with MD5 hashes)
 * [x] Extract the date/time of the zip release (using the first zip entry)
 * [ ] Add to the HTML listing
-* [ ] FTP upload the HTML listing and ZIP archive (plus any other data)
+* [ ] FTP files...
+	* [x] Upload ZIP archive
+	* [x] Diff/patch files
+	* [ ] Upload HTML listing
 
 * [x] Create patch diff zip with the previous version?
 * [x] Compare release with previous version - export diffs to HTML (or other)
