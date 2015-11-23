@@ -29,11 +29,11 @@ namespace UmbracoArchiveProcessor
 			if (!target_dir.Exists)
 				target_dir.Create();
 
-			var artifacts_path = Path.Combine(current_dir, "artifacts");
-			var artifacts_dir = new DirectoryInfo(artifacts_path);
+			var archive_path = Path.Combine(current_dir, "archive");
+			var archive_dir = new DirectoryInfo(archive_path);
 
-			if (!artifacts_dir.Exists)
-				artifacts_dir.Create();
+			if (!archive_dir.Exists)
+				archive_dir.Create();
 
 			var umbraco_version = GetLatestUmbracoVersionNumber();
 
@@ -179,7 +179,7 @@ namespace UmbracoArchiveProcessor
 			var output = JsonConvert.SerializeObject(model, Formatting.Indented);
 			File.WriteAllText(path, output);
 
-			var path1 = path.Replace("releases.json", "..\\artifacts\\releases.json");
+			var path1 = path.Replace("releases.json", "..\\archive\\releases.json");
 			File.WriteAllText(path1, output);
 
 			// create stub for latest release version
@@ -270,7 +270,7 @@ namespace UmbracoArchiveProcessor
 			var model = GetUmbracoArchiveModel(path);
 			var releases = model.Releases;
 
-			var patch_dir = Path.Combine(target_dir.FullName, "..", "artifacts", "patches");
+			var patch_dir = Path.Combine(target_dir.FullName, "..", "archive", "patches");
 			if (!Directory.Exists(patch_dir))
 				Directory.CreateDirectory(patch_dir);
 
@@ -328,7 +328,7 @@ namespace UmbracoArchiveProcessor
 
 			foreach (var file in files)
 			{
-				var version_path = Path.Combine(target_dir.FullName, "..", "artifacts", umbraco_version);
+				var version_path = Path.Combine(target_dir.FullName, "..", "archive", umbraco_version);
 				var version_dir = new DirectoryInfo(version_path);
 
 				if (!version_dir.Exists)

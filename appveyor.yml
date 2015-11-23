@@ -1,6 +1,12 @@
 # version format
 version: 1.0.{build}
 
+# branches to build
+branches:
+  # whitelist
+  only:
+    - master
+
 # set clone depth
 clone_depth: 5
 
@@ -23,11 +29,11 @@ before_build:
 after_build:
   cmd: src\UmbracoArchiveProcessor\bin\Release\uap.exe
 
-# to disable automatic tests 
+# to disable automatic tests
 test: off
 
 artifacts:
-  - path: artifacts\**\*
+  - path: archive\**\*
 
 deploy:
   provider: FTP
@@ -47,7 +53,7 @@ deploy:
 #  - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
 #  - git config --global user.email "leekelleher@gmail.com"
 #  - git config --global user.name "leekelleher"
-#  - git checkout master
+#  - git checkout develop
 #  - git add data/releases.json
 #  - git commit -m "Updated releases.config [skip ci]"
 #  - git push origin master
