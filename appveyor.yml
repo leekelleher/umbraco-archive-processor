@@ -53,7 +53,9 @@ on_success:
   - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
   - git config --global user.email "leekelleher@gmail.com"
   - git config --global user.name "leekelleher"
+  - git stash
   - git checkout develop
+  - git stash pop
   - git add data/releases.json
   - git commit -m "Updated releases.config [skip ci]"
   - git push origin develop
