@@ -51,8 +51,8 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="ZipDiff.Core, Version=1.2.5469.32946, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZipDiff.Core.1.2.0\lib\net40\ZipDiff.Core.dll</HintPath>
+    <Reference Include="ZipDiff.Core, Version=1.3.5813.23973, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZipDiff.Core.1.3.0\lib\net40\ZipDiff.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ZipHash.Core">

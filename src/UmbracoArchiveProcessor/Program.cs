@@ -299,8 +299,9 @@ namespace UmbracoArchiveProcessor
 			var builders = new Dictionary<string, IBuilder>()
 			{
 				{ "html", new HtmlBuilder() },
-				{ "xml", new XmlBuilder2() },
+				{ "json", new JsonBuilder() },
 				{ "txt", new TextBuilder() },
+				{ "xml", new XmlBuilder2() },
 				{ "zip", new ZipBuilder() }
 			};
 
