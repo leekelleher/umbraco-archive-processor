@@ -292,9 +292,9 @@ namespace UmbracoArchiveProcessor
 			var model = GetUmbracoArchiveModel(path);
 			var releases = model.Releases;
 
-			var patch_dir = Path.Combine(target_dir.FullName, "..", "archive", "patches");
-			if (!Directory.Exists(patch_dir))
-				Directory.CreateDirectory(patch_dir);
+			var diffs_dir = Path.Combine(target_dir.FullName, "..", "archive", "diffs");
+			if (!Directory.Exists(diffs_dir))
+				Directory.CreateDirectory(diffs_dir);
 
 			var builders = new Dictionary<string, IBuilder>()
 			{
@@ -332,7 +332,7 @@ namespace UmbracoArchiveProcessor
 			foreach (var item in builders)
 			{
 				var patch_name = string.Format("UmbracoCms.{0}-{1}.{2}", a.Version, b.Version, item.Key);
-				var patch_file = Path.Combine(patch_dir, patch_name);
+				var patch_file = Path.Combine(diffs_dir, patch_name);
 
 				if (!File.Exists(patch_file))
 					item.Value.Build(patch_file, diffs);
