@@ -3,6 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoArchiveProcessor", "UmbracoArchiveProcessor\UmbracoArchiveProcessor.csproj", "{70A97DEB-742A-443D-8E5F-CDB656B125DC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{31D73AA9-1751-4A54-829B-C47ABB3CD82F}"
+	ProjectSection(SolutionItems) = preProject
+		..\data\__template.cshtml = ..\data\__template.cshtml
+		..\data\releases.json = ..\data\releases.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

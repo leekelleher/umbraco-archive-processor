@@ -8,6 +8,8 @@ using System.Security.Cryptography;
 using HtmlAgilityPack;
 using ICSharpCode.SharpZipLib.Zip;
 using Newtonsoft.Json;
+using RazorEngine;
+using RazorEngine.Templating;
 using UmbracoArchiveProcessor.Models;
 using ZipDiff.Core;
 using ZipDiff.Core.Output;
@@ -60,6 +62,8 @@ namespace UmbracoArchiveProcessor
 			GenerateDiffPatches(target_dir);
 
 			MoveToVersionDirectory(umbraco_version, target_dir);
+
+			GenerateHtmlPage(target_dir);
 
 			Console.WriteLine("\n\rThank you and goodnight!");
 		}
@@ -292,15 +296,16 @@ namespace UmbracoArchiveProcessor
 			var model = GetUmbracoArchiveModel(path);
 			var releases = model.Releases;
 
-			var patch_dir = Path.Combine(target_dir.FullName, "..", "archive", "patches");
-			if (!Directory.Exists(patch_dir))
-				Directory.CreateDirectory(patch_dir);
+			var diffs_dir = Path.Combine(target_dir.FullName, "..", "archive", "diffs");
+			if (!Directory.Exists(diffs_dir))
+				Directory.CreateDirectory(diffs_dir);
 
 			var builders = new Dictionary<string, IBuilder>()
 			{
 				{ "html", new HtmlBuilder() },
-				{ "xml", new XmlBuilder2() },
+				{ "json", new JsonBuilder() },
 				{ "txt", new TextBuilder() },
+				{ "xml", new XmlBuilder2() },
 				{ "zip", new ZipBuilder() }
 			};
 
@@ -331,7 +336,7 @@ namespace UmbracoArchiveProcessor
 			foreach (var item in builders)
 			{
 				var patch_name = string.Format("UmbracoCms.{0}-{1}.{2}", a.Version, b.Version, item.Key);
-				var patch_file = Path.Combine(patch_dir, patch_name);
+				var patch_file = Path.Combine(diffs_dir, patch_name);
 
 				if (!File.Exists(patch_file))
 					item.Value.Build(patch_file, diffs);
@@ -363,6 +368,31 @@ namespace UmbracoArchiveProcessor
 					associatedFile.MoveTo(Path.Combine(version_dir.FullName, associatedFile.Name));
 				}
 			}
+		}
+
+		static void GenerateHtmlPage(DirectoryInfo target_dir)
+		{
+			var data_path = Path.Combine(target_dir.FullName, "..", "data");
+
+			var template_path = Path.Combine(data_path, "__template.cshtml");
+
+			if (!File.Exists(template_path))
+			{
+				Console.WriteLine("The template file does not exist.");
+				return;
+			}
+
+			var path = Path.Combine(data_path, "releases.json");
+			var model = GetUmbracoArchiveModel(path);
+
+			var razorTemplate = File.ReadAllText(template_path);
+
+			var contents = Engine.Razor.RunCompile(razorTemplate, "UmbracoArchiveTemplate", typeof(UmbracoArchiveModel), model, null);
+
+			var html = Path.Combine(target_dir.FullName, "..", "archive", "index.html");
+			File.WriteAllText(html, contents);
+
+			Console.WriteLine("Finished generating HTML archive index.");
 		}
 	}
 }
