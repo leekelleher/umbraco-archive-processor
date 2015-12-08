@@ -5,8 +5,6 @@ namespace UmbracoArchiveProcessor.Template
 {
 	public class MyCustomizedTemplate<T> : TemplateBase<T>
 	{
-		public T Model { get; set; }
-
 		public MyCustomizedTemplate()
 		{
 		}
