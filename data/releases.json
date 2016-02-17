@@ -751,6 +751,22 @@
       "date": "2016-02-02T17:11:02",
       "md5hash": "ce236baac5b2661236d58dfdcf4f510b",
       "notes": ""
+    },
+    {
+      "version": "7.3.8",
+      "filename": "UmbracoCms.7.3.8.zip",
+      "filesize": 17018902,
+      "date": "2016-02-17T12:36:06",
+      "md5hash": "09afcd56e47df05a7e38ba67f30556f0",
+      "notes": ""
+    },
+    {
+      "version": "7.4.0",
+      "filename": "UmbracoCms.7.4.0.zip",
+      "filesize": 20200110,
+      "date": "2016-02-11T17:21:08",
+      "md5hash": "0a8151ea125f795d69bd436f64cdf6ae",
+      "notes": ""
     }
   ]
 }
