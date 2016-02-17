@@ -1,4 +1,4 @@
-@using UmbracoArchiveProcessor.Models
+﻿@using UmbracoArchiveProcessor.Models
 @inherits UmbracoArchiveProcessor.Template.MyCustomizedTemplate<UmbracoArchiveModel>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +13,7 @@
 		th {text-align: left;padding: 3px 5px;}
 		td {text-align: left;padding: 3px 5px;}
 		tr.version-group {background-color: rgba(0, 170, 0, 0.50);}
-		td.hash {font-size: small;}
+		td.hash {font-size: small;white-space: nowrap;}
 		#footer {clear:both;margin-bottom:35px;}
 	</style>
 	<script>
@@ -89,7 +89,7 @@
 										<td class="version"><a href="@(release.Version)/@(release.FileName)" rel="download">@release.Version</a></td>
 										<td class="date">@release.Date.ToShortDateString()</td>
 										<td class="size">@ConvertBytesToMegabytes(release.FileSize)Mb</td>
-										<td class="hash">@release.MD5Hash</td>
+										<td class="hash">@release.MD5Hash <a href="@(release.Version)/@(release.FileName.Replace(".zip", ".md5"))">md5sum</a></td>
 										<td class="notes">@Raw(release.Notes)</td>
 									</tr>
 								}
