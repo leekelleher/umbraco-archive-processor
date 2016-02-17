@@ -57,5 +57,5 @@ on_success:
   - git checkout develop
   - git stash pop
   - git add data/releases.json
-  - git commit -m "Updated releases.config [skip ci]"
+  - git commit -m "Updated releases.json [skip ci]"
   - git push origin develop
