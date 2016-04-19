@@ -39,7 +39,7 @@ deploy:
   provider: FTP
   protocol: sftp
   host:
-    secure: nq7K4A9kQeSJ5/qrA1SL+uwuBKVmqIWtSygU3Z3iLjg=
+    secure: DpF8/7ol4M0SUzoNMAXRIA==
   username:
     secure: tfL7blohLyft9yGHzsMVMg==
   password:
