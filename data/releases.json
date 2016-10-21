@@ -823,6 +823,14 @@
       "date": "2016-08-23T09:00:00",
       "md5hash": "22d9054f6234ca6805a63bed2bb55093",
       "notes": ""
+    },
+    {
+      "version": "7.5.3",
+      "filename": "UmbracoCms.7.5.3.zip",
+      "filesize": 20283860,
+      "date": "2016-09-05T13:21:04",
+      "md5hash": "4fe8b79e5b74e38430258c437f3fe288",
+      "notes": ""
     }
   ]
 }
