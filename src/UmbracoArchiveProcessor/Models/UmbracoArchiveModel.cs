@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 
 namespace UmbracoArchiveProcessor.Models
 {
-	public class UmbracoArchiveModel
-	{
-		[JsonProperty("releases")]
-		public List<UmbracoArchiveRelease> Releases { get; set; }
-	}
+    public class UmbracoArchiveModel
+    {
+        [JsonProperty("releases")]
+        public List<UmbracoArchiveRelease> Releases { get; set; }
+    }
 }
