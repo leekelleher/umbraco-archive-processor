@@ -70,19 +70,20 @@ namespace UmbracoArchiveProcessor
 
         static string GetLatestUmbracoVersionNumber()
         {
-            var web = new HtmlWeb();
+            using (var client = new WebClient())
+            {
+                var url = "https://raw.githubusercontent.com/umbraco/Umbraco-CMS/master-v7/build/UmbracoVersion.txt";
 
-            var url = "https://our.umbraco.org/download/";
-            var doc = web.Load(url);
+                var contents = client.DownloadString(url);
 
-            var link = doc.DocumentNode.SelectSingleNode("//a[@id='downloadButton']/span[1]");
-            var text = link.InnerText;
+                var lines = contents.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
 
-            var version_number = text.Replace("Download Umbraco v", string.Empty);
+                var version_number = lines[1];
 
-            Console.WriteLine("Latest Umbraco version number: {0}", version_number);
+                Console.WriteLine("Latest Umbraco version number: {0}", version_number);
 
-            return version_number;
+                return version_number;
+            }
         }
 
         static bool HasUmbracoReleaseAlreadyProcessed(string umbraco_version, DirectoryInfo target_dir)
