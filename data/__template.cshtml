@@ -2,10 +2,9 @@
 @inherits UmbracoArchiveProcessor.Template.MyCustomizedTemplate<UmbracoArchiveModel>
 @{
     var minReleaseNoteVersion = new Version("4.11.8");
-	var minSourceTaggedVersion = new Version("4.11.6");
+    var minSourceTaggedVersion = new Version("4.11.6");
     UmbracoArchiveRelease previousRelease = null;
-}
-<!DOCTYPE html>
+}<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -22,29 +21,29 @@
         #footer {clear: both;margin-bottom: 35px;}
     </style>
     <script>
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-122639-2']);
-		_gaq.push(['_setDomainName', '.leekelleher.com']);
-		_gaq.push(['_trackPageview']);
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-122639-2']);
+        _gaq.push(['_setDomainName', '.leekelleher.com']);
+        _gaq.push(['_trackPageview']);
     </script>
     <script async="async" src="http://www.google-analytics.com/ga.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
-		$(function(){
-			var trackEvent = function(type, element){
-				var title = $(element).attr('title');
-				if (typeof(title) == 'undefined') {
-					title = element.innerText;
-				}
-				_gaq.push(['_trackEvent', type, title]);
-			};
-			$('a[rel=download]').click(function(){
-				trackEvent('Download', this);
-			});
-			$('a[rel=external]').click(function(){
-				trackEvent('Referral', this);
-			});
-		});
+        $(function(){
+            var trackEvent = function(type, element){
+                var title = $(element).attr('title');
+                if (typeof(title) == 'undefined') {
+                    title = element.innerText;
+                }
+                _gaq.push(['_trackEvent', type, title]);
+            };
+            $('a[rel=download]').click(function(){
+                trackEvent('Download', this);
+            });
+            $('a[rel=external]').click(function(){
+                trackEvent('Referral', this);
+            });
+        });
     </script>
 </head>
 <body>
@@ -110,9 +109,9 @@
                                             {
                                                 <div><a href="https://our.umbraco.org/contribute/releases/compare?from=@(previousRelease.Version)&to=@(release.Version)" rel="external">Compare release notes with v@(previousRelease.Version)</a></div>
                                             }
-											@if (new Version(release.Version) > minSourceTaggedVersion && previousRelease != null)
+                                            @if (new Version(release.Version) > minSourceTaggedVersion && previousRelease != null)
                                             {
-												<div><a href="https://github.com/umbraco/Umbraco-CMS/compare/release-@(previousRelease.Version)...release-@(release.Version)" rel="external">Compare source-code changes from v@(previousRelease.Version) (on GitHub)</a></div>
+                                                <div><a href="https://github.com/umbraco/Umbraco-CMS/compare/release-@(previousRelease.Version)...release-@(release.Version)" rel="external">Compare source-code changes from v@(previousRelease.Version) (on GitHub)</a></div>
                                             }
                                         </td>
                                     </tr>
