@@ -2,6 +2,7 @@
 @inherits UmbracoArchiveProcessor.Template.MyCustomizedTemplate<UmbracoArchiveModel>
 @{
     var minReleaseNoteVersion = new Version("4.11.8");
+	var minSourceTaggedVersion = new Version("4.11.6");
     UmbracoArchiveRelease previousRelease = null;
 }
 <!DOCTYPE html>
@@ -103,13 +104,15 @@
                                         <td class="notes">
                                             @if (!string.IsNullOrWhiteSpace(release.Notes))
                                             {
-                                                <em>@Raw(release.Notes)</em>
-                                                <br>
+                                                <div><em>@Raw(release.Notes)</em></div>
                                             }
                                             @if (new Version(release.Version) > minReleaseNoteVersion && previousRelease != null)
                                             {
-                                                // TODO: [LK] Find a way to get the previous release version number
-                                                <a href="https://our.umbraco.org/contribute/releases/compare?from=@(previousRelease.Version)&to=@(release.Version)">Compare release notes with v@(previousRelease.Version)</a>
+                                                <div><a href="https://our.umbraco.org/contribute/releases/compare?from=@(previousRelease.Version)&to=@(release.Version)" rel="external">Compare release notes with v@(previousRelease.Version)</a></div>
+                                            }
+											@if (new Version(release.Version) > minSourceTaggedVersion && previousRelease != null)
+                                            {
+												<div><a href="https://github.com/umbraco/Umbraco-CMS/compare/release-@(previousRelease.Version)...release-@(release.Version)" rel="external">Compare source-code changes from v@(previousRelease.Version) (on GitHub)</a></div>
                                             }
                                         </td>
                                     </tr>
