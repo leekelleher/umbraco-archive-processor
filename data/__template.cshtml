@@ -92,7 +92,7 @@
                                     <tr>
                                         <td class="version"><a href="@(release.Version)/@(release.FileName)" rel="download">@release.Version</a></td>
                                         <td class="date" title="Released on @release.Date.ToString("dddd dd MMMM yyyy HH:mm:ss")">
-                                            <time datetime="@release.Date.ToString("yyyy-MM-dd HH:mm")">@release.Date.ToShortDateString()</time>
+                                            <time datetime="@release.Date.ToString("yyyy-MM-dd HH:mm")">@release.Date.ToString("dd/MM/yyyy")</time>
                                         </td>
                                         <td class="size">@ConvertBytesToMegabytes(release.FileSize)Mb</td>
                                         <td class="hash">
