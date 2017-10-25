@@ -68,24 +68,6 @@ namespace UmbracoArchiveProcessor
             Console.WriteLine("\n\rThank you and goodnight!");
         }
 
-        //static string GetLatestUmbracoVersionNumber()
-        //{
-        //    using (var client = new WebClient())
-        //    {
-        //        var url = "https://raw.githubusercontent.com/umbraco/Umbraco-CMS/master-v7/build/UmbracoVersion.txt";
-        //
-        //        var contents = client.DownloadString(url);
-        //
-        //        var lines = contents.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
-        //
-        //        var version_number = lines[1];
-        //
-        //        Console.WriteLine("Latest Umbraco version number: {0}", version_number);
-        //
-        //        return version_number;
-        //    }
-        //}
-
         static string GetLatestUmbracoVersionNumber()
         {
             var web = new HtmlWeb();
