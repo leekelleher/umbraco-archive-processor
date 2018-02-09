@@ -113,6 +113,10 @@
                                             {
                                                 <div><a href="https://github.com/umbraco/Umbraco-CMS/compare/release-@(previousRelease.Version)...release-@(release.Version)" rel="external">Compare source-code changes from v@(previousRelease.Version) (on GitHub)</a></div>
                                             }
+                                            @if (previousRelease != null)
+                                            {
+                                                <div><em>Diffs:</em> <a href="diffs/UmbracoCms.@(previousRelease.Version)-@(release.Version).html" rel="diff">HTML</a> or <a href="diffs/UmbracoCms.@(previousRelease.Version)-@(release.Version).zip" rel="diff">ZIP</a></div>
+                                            }
                                         </td>
                                     </tr>
                                     previousRelease = release;
