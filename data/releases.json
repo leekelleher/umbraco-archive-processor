@@ -926,7 +926,7 @@
       "filesize": 23224216,
       "date": "2017-05-02T04:26:06",
       "md5hash": "29baea0e754b5f5c7b21c761a3db4596",
-      "notes": ""
+      "notes": "Improved template and script code editors"
     },
     {
       "version": "7.6.1",
@@ -1030,7 +1030,7 @@
       "filesize": 19804969,
       "date": "2017-09-18T21:14:56",
       "md5hash": "57ccd962956a9d21a8cdb601f7aa8879",
-      "notes": ""
+      "notes": "Improved user management and content templates"
     },
     {
       "version": "7.7.1",
@@ -1126,7 +1126,7 @@
       "filesize": 20450376,
       "date": "2018-02-06T10:57:46",
       "md5hash": "7cf5e00baf679d956c271bc0fdaaab88",
-      "notes": ""
+      "notes": "Added back-office tours"
     },
     {
       "version": "7.8.1",
