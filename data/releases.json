@@ -1129,6 +1129,14 @@
       "notes": ""
     },
     {
+      "version": "7.7.13",
+      "filename": "UmbracoCms.7.7.13.zip",
+      "filesize": 19924069,
+      "date": "2018-02-23T21:31:12",
+      "md5hash": "b9620de2e7c7d7d10fa01a15aef253db",
+      "notes": ""
+    },
+    {
       "version": "7.8.0",
       "filename": "UmbracoCms.7.8.0.zip",
       "filesize": 20450376,
@@ -1143,6 +1151,14 @@
       "date": "2018-02-09T09:26:32",
       "md5hash": "3bd29bec11dfd50617658a538e9865ff",
       "notes": ""
+    },
+    {
+      "version": "7.9.0",
+      "filename": "UmbracoCms.7.9.0.zip",
+      "filesize": 20490838,
+      "date": "2018-02-26T15:42:28",
+      "md5hash": "0147ae7f2880a487e0c2f05980a3fe13",
+      "notes": "The GDPR release"
     }
   ]
 }
