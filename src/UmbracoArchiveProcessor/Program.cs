@@ -75,10 +75,10 @@ namespace UmbracoArchiveProcessor
             var url = "https://our.umbraco.org/download/";
             var doc = web.Load(url);
 
-            var link = doc.DocumentNode.SelectSingleNode("//a[@id='downloadButton']/span[1]");
+            var link = doc.DocumentNode.SelectSingleNode("//a[@id='downloadButton']");
             var text = link.InnerText;
 
-            var version_number = text.Replace("Download Umbraco v", string.Empty);
+            var version_number = text.Replace("Download ", string.Empty);
 
             Console.WriteLine("Latest Umbraco version number: {0}", version_number);
 
