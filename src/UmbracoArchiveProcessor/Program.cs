@@ -28,13 +28,13 @@ namespace UmbracoArchiveProcessor
             var target_path = Path.Combine(current_dir, "_tmp");
             var target_dir = new DirectoryInfo(target_path);
 
-            if (!target_dir.Exists)
+            if (target_dir.Exists == false)
                 target_dir.Create();
 
             var archive_path = Path.Combine(current_dir, "archive");
             var archive_dir = new DirectoryInfo(archive_path);
 
-            if (!archive_dir.Exists)
+            if (archive_dir.Exists == false)
                 archive_dir.Create();
 
             var umbraco_version = GetLatestUmbracoVersionNumber();
@@ -75,10 +75,10 @@ namespace UmbracoArchiveProcessor
             var url = "https://our.umbraco.org/download/";
             var doc = web.Load(url);
 
-            var link = doc.DocumentNode.SelectSingleNode("//a[@id='downloadButton']/span[1]");
+            var link = doc.DocumentNode.SelectSingleNode("//a[@id='downloadButton']");
             var text = link.InnerText;
 
-            var version_number = text.Replace("Download Umbraco v", string.Empty);
+            var version_number = text.Replace("Download ", string.Empty);
 
             Console.WriteLine("Latest Umbraco version number: {0}", version_number);
 
@@ -153,7 +153,7 @@ namespace UmbracoArchiveProcessor
 
         static DateTime GetDateTimeForZip(FileInfo file)
         {
-            if (!file.Exists)
+            if (file.Exists == false)
                 return DateTime.MinValue;
 
             using (var reader = file.OpenRead())
@@ -251,7 +251,7 @@ namespace UmbracoArchiveProcessor
 
                 foreach (var entry in zipFile.Cast<ZipEntry>())
                 {
-                    if (entry.Name.Contains("bin") && entry.Name.EndsWith(".dll") && (!entry.Name.Contains("amd64") && !entry.Name.Contains("x86")))
+                    if (entry.Name.Contains("bin") && entry.Name.EndsWith(".dll") && (entry.Name.Contains("amd64") == false && entry.Name.Contains("x86") == false))
                     {
                         var fileName = Path.GetFileName(entry.Name);
 
@@ -297,7 +297,7 @@ namespace UmbracoArchiveProcessor
             var releases = model.Releases;
 
             var diffs_dir = Path.Combine(target_dir.FullName, "..", "archive", "diffs");
-            if (!Directory.Exists(diffs_dir))
+            if (Directory.Exists(diffs_dir) == false)
                 Directory.CreateDirectory(diffs_dir);
 
             var builders = new Dictionary<string, IBuilder>()
@@ -311,7 +311,7 @@ namespace UmbracoArchiveProcessor
 
             var a = releases[releases.Count - 2];
 
-            if (!File.Exists(Path.Combine(target_dir.FullName, a.FileName)))
+            if (File.Exists(Path.Combine(target_dir.FullName, a.FileName)) == false)
             {
                 Console.WriteLine("Could not find '{0}' on disk; downloading.", a.Version);
                 DownloadUmbracoReleaseArchive(a.Version, target_dir.FullName);
@@ -338,7 +338,7 @@ namespace UmbracoArchiveProcessor
                 var patch_name = string.Format("UmbracoCms.{0}-{1}.{2}", a.Version, b.Version, item.Key);
                 var patch_file = Path.Combine(diffs_dir, patch_name);
 
-                if (!File.Exists(patch_file))
+                if (File.Exists(patch_file) == false)
                     item.Value.Build(patch_file, diffs);
             }
 
@@ -358,7 +358,7 @@ namespace UmbracoArchiveProcessor
                 var version_path = Path.Combine(target_dir.FullName, "..", "archive", umbraco_version);
                 var version_dir = new DirectoryInfo(version_path);
 
-                if (!version_dir.Exists)
+                if (version_dir.Exists == false)
                     version_dir.Create();
 
                 var associatedFiles = target_dir.GetFiles(file.Name.Replace(".zip", ".*"), searchOption);
@@ -376,7 +376,7 @@ namespace UmbracoArchiveProcessor
 
             var template_path = Path.Combine(data_path, "__template.cshtml");
 
-            if (!File.Exists(template_path))
+            if (File.Exists(template_path) == false)
             {
                 Console.WriteLine("The template file does not exist.");
                 return;

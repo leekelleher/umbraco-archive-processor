@@ -926,7 +926,7 @@
       "filesize": 23224216,
       "date": "2017-05-02T04:26:06",
       "md5hash": "29baea0e754b5f5c7b21c761a3db4596",
-      "notes": ""
+      "notes": "Improved template and script code editors"
     },
     {
       "version": "7.6.1",
@@ -1030,7 +1030,7 @@
       "filesize": 19804969,
       "date": "2017-09-18T21:14:56",
       "md5hash": "57ccd962956a9d21a8cdb601f7aa8879",
-      "notes": ""
+      "notes": "Improved user management and content templates"
     },
     {
       "version": "7.7.1",
@@ -1095,6 +1095,70 @@
       "date": "2018-01-08T08:16:42",
       "md5hash": "510b2b4f10c30b8bc29f73a094d91329",
       "notes": ""
+    },
+    {
+      "version": "7.7.9",
+      "filename": "UmbracoCms.7.7.9.zip",
+      "filesize": 19910572,
+      "date": "2018-01-22T11:44:04",
+      "md5hash": "ac2e3fd8d6277e63a775aaa3fc056102",
+      "notes": ""
+    },
+    {
+      "version": "7.7.10",
+      "filename": "UmbracoCms.7.7.10.zip",
+      "filesize": 19909822,
+      "date": "2018-02-05T12:52:38",
+      "md5hash": "cac414f559936d0d77de2f16ea4707f0",
+      "notes": ""
+    },
+    {
+      "version": "7.7.11",
+      "filename": "UmbracoCms.7.7.11.zip",
+      "filesize": 19907593,
+      "date": "2018-02-09T09:03:32",
+      "md5hash": "4149eb6ffcae49c64d9808c821113ab6",
+      "notes": ""
+    },
+    {
+      "version": "7.7.12",
+      "filename": "UmbracoCms.7.7.12.zip",
+      "filesize": 19909601,
+      "date": "2018-02-19T19:41:54",
+      "md5hash": "17bce4089b86b9055ef23d481e138b1e",
+      "notes": ""
+    },
+    {
+      "version": "7.7.13",
+      "filename": "UmbracoCms.7.7.13.zip",
+      "filesize": 19924069,
+      "date": "2018-02-23T21:31:12",
+      "md5hash": "b9620de2e7c7d7d10fa01a15aef253db",
+      "notes": ""
+    },
+    {
+      "version": "7.8.0",
+      "filename": "UmbracoCms.7.8.0.zip",
+      "filesize": 20450376,
+      "date": "2018-02-06T10:57:46",
+      "md5hash": "7cf5e00baf679d956c271bc0fdaaab88",
+      "notes": "Added back-office tours"
+    },
+    {
+      "version": "7.8.1",
+      "filename": "UmbracoCms.7.8.1.zip",
+      "filesize": 20448527,
+      "date": "2018-02-09T09:26:32",
+      "md5hash": "3bd29bec11dfd50617658a538e9865ff",
+      "notes": ""
+    },
+    {
+      "version": "7.9.0",
+      "filename": "UmbracoCms.7.9.0.zip",
+      "filesize": 20490838,
+      "date": "2018-02-26T15:42:28",
+      "md5hash": "0147ae7f2880a487e0c2f05980a3fe13",
+      "notes": "The GDPR release"
     }
   ]
 }
