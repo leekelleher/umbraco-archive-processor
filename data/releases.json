@@ -1159,6 +1159,14 @@
       "date": "2018-02-26T15:42:28",
       "md5hash": "0147ae7f2880a487e0c2f05980a3fe13",
       "notes": "The GDPR release"
+    },
+    {
+      "version": "7.9.1",
+      "filename": "UmbracoCms.7.9.1.zip",
+      "filesize": 20491233,
+      "date": "2018-03-01T09:34:54",
+      "md5hash": "cb9955ce2e0eb98c9ea8aecf0b0b1e7e",
+      "notes": ""
     }
   ]
 }
