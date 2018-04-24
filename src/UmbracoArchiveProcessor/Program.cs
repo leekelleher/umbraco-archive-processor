@@ -37,7 +37,7 @@ namespace UmbracoArchiveProcessor
             if (archive_dir.Exists == false)
                 archive_dir.Create();
 
-            var umbraco_version = GetLatestUmbracoVersionNumber();
+            var umbraco_version = args.Length > 0 ? args[0] : GetLatestUmbracoVersionNumber();
 
             if (string.IsNullOrWhiteSpace(umbraco_version))
             {
@@ -45,23 +45,25 @@ namespace UmbracoArchiveProcessor
                 Environment.Exit(2);
             }
 
-            if (HasUmbracoReleaseAlreadyProcessed(umbraco_version, target_dir))
+            if (HasUmbracoReleaseAlreadyProcessed(target_path, umbraco_version))
             {
                 Console.WriteLine("Umbraco version has already been processed.");
                 Environment.Exit(2);
             }
 
-            DownloadUmbracoReleaseArchive(umbraco_version, target_path);
+            var umbraco_filename = string.Format("UmbracoCms.{0}.zip", umbraco_version);
 
-            GenerateHashes(target_dir);
+            DownloadUmbracoReleaseArchive(target_path, umbraco_filename);
 
-            UpdateArchiveData(target_dir);
+            GenerateHashes(target_dir, umbraco_filename);
 
-            GetUmbracoAssemblyVersions(target_dir);
+            UpdateArchiveData(target_dir, umbraco_filename);
 
-            GenerateDiffPatches(target_dir);
+            GetUmbracoAssemblyVersions(target_dir, umbraco_filename);
 
-            MoveToVersionDirectory(umbraco_version, target_dir);
+            GenerateDiffPatches(target_dir, umbraco_version);
+
+            MoveToVersionDirectory(umbraco_version, target_dir, umbraco_filename);
 
             GenerateHtmlPage(target_dir);
 
@@ -85,19 +87,19 @@ namespace UmbracoArchiveProcessor
             return version_number;
         }
 
-        static bool HasUmbracoReleaseAlreadyProcessed(string umbraco_version, DirectoryInfo target_dir)
+        static bool HasUmbracoReleaseAlreadyProcessed(string target_path, string umbraco_version)
         {
-            var path = Path.Combine(target_dir.FullName, "..", "data", "releases.json");
+            var path = Path.Combine(target_path, "..", "data", "releases.json");
             var model = GetUmbracoArchiveModel(path);
 
             return model.Releases.Any(x => x.Version == umbraco_version);
         }
 
-        static void DownloadUmbracoReleaseArchive(string umbraco_version, string target_path)
+        static void DownloadUmbracoReleaseArchive(string target_path, string umbraco_filename)
         {
-            var filename = string.Format("UmbracoCms.{0}.zip", umbraco_version);
+            var filepath = Path.Combine(target_path, umbraco_filename);
 
-            if (File.Exists(Path.Combine(target_path, filename)))
+            if (File.Exists(filepath))
             {
                 Console.WriteLine("File already downloaded.");
                 return;
@@ -107,8 +109,7 @@ namespace UmbracoArchiveProcessor
 
             using (var client = new WebClient())
             {
-                var filepath = Path.Combine(target_path, filename);
-                var uri = new Uri(string.Format("http://umbracoreleases.blob.core.windows.net/download/UmbracoCms.{0}.zip", umbraco_version));
+                var uri = new Uri(string.Format("http://umbracoreleases.blob.core.windows.net/download/{0}", umbraco_filename));
 
                 //client.DownloadProgressChanged += (s, e) =>
                 //{
@@ -290,7 +291,7 @@ namespace UmbracoArchiveProcessor
             }
         }
 
-        static void GenerateDiffPatches(DirectoryInfo target_dir)
+        static void GenerateDiffPatches(DirectoryInfo target_dir, string umbraco_version)
         {
             var path = Path.Combine(target_dir.FullName, "..", "data", "releases.json");
             var model = GetUmbracoArchiveModel(path);
@@ -309,20 +310,25 @@ namespace UmbracoArchiveProcessor
                 { "zip", new ZipBuilder() }
             };
 
-            var a = releases[releases.Count - 2];
+            var index = releases.FindIndex(x => x.Version == umbraco_version);
 
-            if (File.Exists(Path.Combine(target_dir.FullName, a.FileName)) == false)
+            if (index == -1)
+                index = releases.Count - 1;
+
+            var previous = releases[index - 1];
+
+            if (File.Exists(Path.Combine(target_dir.FullName, previous.FileName)) == false)
             {
-                Console.WriteLine("Could not find '{0}' on disk; downloading.", a.Version);
-                DownloadUmbracoReleaseArchive(a.Version, target_dir.FullName);
+                Console.WriteLine("Could not find '{0}' on disk; downloading.", previous.Version);
+                DownloadUmbracoReleaseArchive(previous.Version, target_dir.FullName);
             }
 
-            var b = releases[releases.Count - 1];
+            var current = releases[index];
 
-            Console.WriteLine("Comparing the differences between: {0} - {1}", a.Version, b.Version);
+            Console.WriteLine("Comparing the differences between: {0} - {1}", previous.Version, current.Version);
 
-            var file1 = new FileInfo(Path.Combine(target_dir.FullName, a.FileName));
-            var file2 = new FileInfo(Path.Combine(target_dir.FullName, b.FileName));
+            var file1 = new FileInfo(Path.Combine(target_dir.FullName, previous.FileName));
+            var file2 = new FileInfo(Path.Combine(target_dir.FullName, current.FileName));
 
             var calc = new DifferenceCalculator(file1, file2)
             {
@@ -335,7 +341,7 @@ namespace UmbracoArchiveProcessor
 
             foreach (var item in builders)
             {
-                var patch_name = string.Format("UmbracoCms.{0}-{1}.{2}", a.Version, b.Version, item.Key);
+                var patch_name = string.Format("UmbracoCms.{0}-{1}.{2}", previous.Version, current.Version, item.Key);
                 var patch_file = Path.Combine(diffs_dir, patch_name);
 
                 if (File.Exists(patch_file) == false)
@@ -344,7 +350,7 @@ namespace UmbracoArchiveProcessor
 
             Console.WriteLine(diffs);
 
-            File.Delete(Path.Combine(target_dir.FullName, a.FileName));
+            File.Delete(Path.Combine(target_dir.FullName, previous.FileName));
 
             Console.WriteLine("Finished generating diff patches.");
         }
