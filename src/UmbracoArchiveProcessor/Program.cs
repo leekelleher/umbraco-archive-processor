@@ -61,7 +61,7 @@ namespace UmbracoArchiveProcessor
 
             GetUmbracoAssemblyVersions(target_dir, umbraco_filename);
 
-            GenerateDiffPatches(target_dir, umbraco_version);
+            GenerateDiffPatches(target_path, umbraco_version);
 
             MoveToVersionDirectory(umbraco_version, target_dir, umbraco_filename);
 
@@ -291,13 +291,13 @@ namespace UmbracoArchiveProcessor
             }
         }
 
-        static void GenerateDiffPatches(DirectoryInfo target_dir, string umbraco_version)
+        static void GenerateDiffPatches(string target_path, string umbraco_version)
         {
-            var path = Path.Combine(target_dir.FullName, "..", "data", "releases.json");
+            var path = Path.Combine(target_path, "..", "data", "releases.json");
             var model = GetUmbracoArchiveModel(path);
             var releases = model.Releases;
 
-            var diffs_dir = Path.Combine(target_dir.FullName, "..", "archive", "diffs");
+            var diffs_dir = Path.Combine(target_path, "..", "archive", "diffs");
             if (Directory.Exists(diffs_dir) == false)
                 Directory.CreateDirectory(diffs_dir);
 
@@ -317,18 +317,18 @@ namespace UmbracoArchiveProcessor
 
             var previous = releases[index - 1];
 
-            if (File.Exists(Path.Combine(target_dir.FullName, previous.FileName)) == false)
+            if (File.Exists(Path.Combine(target_path, previous.FileName)) == false)
             {
                 Console.WriteLine("Could not find '{0}' on disk; downloading.", previous.Version);
-                DownloadUmbracoReleaseArchive(previous.Version, target_dir.FullName);
+                DownloadUmbracoReleaseArchive(target_path, string.Format("UmbracoCms.{0}.zip", previous.Version));
             }
 
             var current = releases[index];
 
             Console.WriteLine("Comparing the differences between: {0} - {1}", previous.Version, current.Version);
 
-            var file1 = new FileInfo(Path.Combine(target_dir.FullName, previous.FileName));
-            var file2 = new FileInfo(Path.Combine(target_dir.FullName, current.FileName));
+            var file1 = new FileInfo(Path.Combine(target_path, previous.FileName));
+            var file2 = new FileInfo(Path.Combine(target_path, current.FileName));
 
             var calc = new DifferenceCalculator(file1, file2)
             {
@@ -350,7 +350,7 @@ namespace UmbracoArchiveProcessor
 
             Console.WriteLine(diffs);
 
-            File.Delete(Path.Combine(target_dir.FullName, previous.FileName));
+            File.Delete(Path.Combine(target_path, previous.FileName));
 
             Console.WriteLine("Finished generating diff patches.");
         }
