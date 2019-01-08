@@ -9,6 +9,7 @@ using HtmlAgilityPack;
 using ICSharpCode.SharpZipLib.Zip;
 using Newtonsoft.Json;
 using RazorEngine;
+using RazorEngine.Configuration;
 using RazorEngine.Templating;
 using UmbracoArchiveProcessor.Models;
 using ZipDiff.Core;
@@ -392,6 +393,9 @@ namespace UmbracoArchiveProcessor
             var model = GetUmbracoArchiveModel(path);
 
             var razorTemplate = File.ReadAllText(template_path);
+
+            var config = new TemplateServiceConfiguration { Debug = true, ReferenceResolver = new Template.SystemRuntimeResolver() };
+            Engine.Razor = RazorEngineService.Create(config);
 
             var contents = Engine.Razor.RunCompile(razorTemplate, "UmbracoArchiveTemplate", typeof(UmbracoArchiveModel), model, null);
 
