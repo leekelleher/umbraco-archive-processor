@@ -38,21 +38,21 @@ namespace UmbracoArchiveProcessor
             if (archive_dir.Exists == false)
                 archive_dir.Create();
 
-            var umbraco_version = args.Length > 0 ? args[0] : GetLatestUmbracoVersionNumber();
+            var latest_version = args.Length > 0 ? args[0] : GetLatestUmbracoVersionNumber();
 
-            if (string.IsNullOrWhiteSpace(umbraco_version))
+            if (string.IsNullOrWhiteSpace(latest_version))
             {
                 Console.WriteLine("Unable to get the latest Umbraco version number.");
                 Environment.Exit(2);
             }
 
-            if (HasUmbracoReleaseAlreadyProcessed(target_path, umbraco_version))
+            if (HasUmbracoReleaseAlreadyProcessed(target_path, latest_version))
             {
                 Console.WriteLine("Umbraco version has already been processed.");
                 Environment.Exit(2);
             }
 
-            var umbraco_filename = string.Format("UmbracoCms.{0}.zip", umbraco_version);
+            var umbraco_filename = string.Format("UmbracoCms.{0}.zip", latest_version);
 
             DownloadUmbracoReleaseArchive(target_path, umbraco_filename);
 
@@ -62,9 +62,11 @@ namespace UmbracoArchiveProcessor
 
             GetUmbracoAssemblyVersions(target_dir, umbraco_filename);
 
-            GenerateDiffPatches(target_path, umbraco_version);
+            var previous_version = args.Length > 1 ? args[1] : string.Empty;
 
-            MoveToVersionDirectory(umbraco_version, target_dir, umbraco_filename);
+            GenerateDiffPatches(target_path, latest_version, previous_version);
+
+            MoveToVersionDirectory(latest_version, target_dir, umbraco_filename);
 
             GenerateHtmlPage(target_dir);
 
@@ -88,12 +90,12 @@ namespace UmbracoArchiveProcessor
             return version_number;
         }
 
-        static bool HasUmbracoReleaseAlreadyProcessed(string target_path, string umbraco_version)
+        static bool HasUmbracoReleaseAlreadyProcessed(string target_path, string latest_version)
         {
             var path = Path.Combine(target_path, "..", "data", "releases.json");
             var model = GetUmbracoArchiveModel(path);
 
-            return model.Releases.Any(x => x.Version == umbraco_version);
+            return model.Releases.Any(x => x.Version == latest_version);
         }
 
         static void DownloadUmbracoReleaseArchive(string target_path, string umbraco_filename)
@@ -292,7 +294,7 @@ namespace UmbracoArchiveProcessor
             }
         }
 
-        static void GenerateDiffPatches(string target_path, string umbraco_version)
+        static void GenerateDiffPatches(string target_path, string latest_version, string previous_version)
         {
             var path = Path.Combine(target_path, "..", "data", "releases.json");
             var model = GetUmbracoArchiveModel(path);
@@ -311,12 +313,15 @@ namespace UmbracoArchiveProcessor
                 { "zip", new ZipBuilder() }
             };
 
-            var index = releases.FindIndex(x => x.Version == umbraco_version);
+            var latestIndex = releases.FindIndex(x => x.Version == latest_version);
+            if (latestIndex == -1)
+                latestIndex = releases.Count - 1;
 
-            if (index == -1)
-                index = releases.Count - 1;
+            var previousIndex = releases.FindIndex(x => x.Version == previous_version);
+            if (previousIndex == -1)
+                previousIndex = latestIndex - 1;
 
-            var previous = releases[index - 1];
+            var previous = releases[previousIndex];
 
             if (File.Exists(Path.Combine(target_path, previous.FileName)) == false)
             {
@@ -324,7 +329,7 @@ namespace UmbracoArchiveProcessor
                 DownloadUmbracoReleaseArchive(target_path, string.Format("UmbracoCms.{0}.zip", previous.Version));
             }
 
-            var current = releases[index];
+            var current = releases[latestIndex];
 
             Console.WriteLine("Comparing the differences between: {0} - {1}", previous.Version, current.Version);
 
@@ -356,13 +361,13 @@ namespace UmbracoArchiveProcessor
             Console.WriteLine("Finished generating diff patches.");
         }
 
-        static void MoveToVersionDirectory(string umbraco_version, DirectoryInfo target_dir, string pattern = "UmbracoCms.*.zip", SearchOption searchOption = SearchOption.TopDirectoryOnly)
+        static void MoveToVersionDirectory(string latest_version, DirectoryInfo target_dir, string pattern = "UmbracoCms.*.zip", SearchOption searchOption = SearchOption.TopDirectoryOnly)
         {
             var files = target_dir.GetFiles(pattern, searchOption);
 
             foreach (var file in files)
             {
-                var version_path = Path.Combine(target_dir.FullName, "..", "archive", umbraco_version);
+                var version_path = Path.Combine(target_dir.FullName, "..", "archive", latest_version);
                 var version_dir = new DirectoryInfo(version_path);
 
                 if (version_dir.Exists == false)
