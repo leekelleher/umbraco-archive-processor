@@ -625,6 +625,14 @@
       "notes": ""
     },
     {
+      "version": "7.1.10",
+      "filename": "UmbracoCms.7.1.10.zip",
+      "filesize": 16113185,
+      "date": "2019-11-22T11:54:10",
+      "md5hash": "f013f4af588c6a6c131d5927403e8e67",
+      "notes": ""
+    },
+    {
       "version": "7.2.0",
       "filename": "UmbracoCms.7.2.0.zip",
       "filesize": 16411606,
@@ -694,6 +702,14 @@
       "filesize": 16423787,
       "date": "2015-07-16T13:02:30",
       "md5hash": "3778776ad59e3604594323cdd80f6bfa",
+      "notes": ""
+    },
+    {
+      "version": "7.2.9",
+      "filename": "UmbracoCms.7.2.9.zip",
+      "filesize": 16425255,
+      "date": "2019-11-22T11:07:08",
+      "md5hash": "bebc8c5559c931e24996fc6531e17146",
       "notes": ""
     },
     {
@@ -769,6 +785,14 @@
       "notes": ""
     },
     {
+      "version": "7.3.9",
+      "filename": "UmbracoCms.7.3.9.zip",
+      "filesize": 17020506,
+      "date": "2019-11-22T09:56:40",
+      "md5hash": "49e24cb985eaa3c7ba4d9d7cf1f897cd",
+      "notes": ""
+    },
+    {
       "version": "7.4.0",
       "filename": "UmbracoCms.7.4.0.zip",
       "filesize": 20200110,
@@ -798,6 +822,14 @@
       "filesize": 20233794,
       "date": "2016-04-14T10:05:00",
       "md5hash": "95acba7fb4aeb063600ebea7a8d284fb",
+      "notes": ""
+    },
+    {
+      "version": "7.4.4",
+      "filename": "UmbracoCms.7.4.4.zip",
+      "filesize": 20285533,
+      "date": "2019-11-22T09:29:34",
+      "md5hash": "8fdc69620eb4e8e65d6798512a427898",
       "notes": ""
     },
     {
@@ -921,6 +953,14 @@
       "notes": ""
     },
     {
+      "version": "7.5.15",
+      "filename": "UmbracoCms.7.5.15.zip",
+      "filesize": 20454872,
+      "date": "2019-11-21T21:45:34",
+      "md5hash": "7b7d21aa32fea530ccc539a406130505",
+      "notes": ""
+    },
+    {
       "version": "7.6.0",
       "filename": "UmbracoCms.7.6.0.zip",
       "filesize": 23224216,
@@ -1030,6 +1070,14 @@
       "filesize": 23093891,
       "date": "2018-01-08T20:29:22",
       "md5hash": "48f942c8cf30875ce9f38392d0c459c2",
+      "notes": ""
+    },
+    {
+      "version": "7.6.14",
+      "filename": "UmbracoCms.7.6.14.zip",
+      "filesize": 23097579,
+      "date": "2019-12-03T10:55:56",
+      "md5hash": "81d4785151b0c4b065086de47757f08d",
       "notes": ""
     },
     {
@@ -1145,6 +1193,14 @@
       "notes": ""
     },
     {
+      "version": "7.7.14",
+      "filename": "UmbracoCms.7.7.14.zip",
+      "filesize": 19933451,
+      "date": "2019-12-03T10:55:40",
+      "md5hash": "dacce12d6f58f875128c197b1474bca4",
+      "notes": ""
+    },
+    {
       "version": "7.8.0",
       "filename": "UmbracoCms.7.8.0.zip",
       "filesize": 20450376,
@@ -1174,6 +1230,14 @@
       "filesize": 20454127,
       "date": "2018-04-20T10:07:20",
       "md5hash": "f64fd09d8fa9bcd3159797dfd891d3c0",
+      "notes": ""
+    },
+    {
+      "version": "7.8.4",
+      "filename": "UmbracoCms.7.8.4.zip",
+      "filesize": 20461977,
+      "date": "2019-12-03T10:55:50",
+      "md5hash": "46c3c2228fe3ea67b3d5dd3255a43b34",
       "notes": ""
     },
     {
@@ -1233,6 +1297,14 @@
       "notes": ""
     },
     {
+      "version": "7.9.7",
+      "filename": "UmbracoCms.7.9.7.zip",
+      "filesize": 20303772,
+      "date": "2019-12-03T10:55:16",
+      "md5hash": "ea56c8435b064d3202f7de87af856238",
+      "notes": ""
+    },
+    {
       "version": "7.10.0",
       "filename": "UmbracoCms.7.10.0.zip",
       "filesize": 20509875,
@@ -1281,6 +1353,14 @@
       "notes": ""
     },
     {
+      "version": "7.10.6",
+      "filename": "UmbracoCms.7.10.6.zip",
+      "filesize": 20516089,
+      "date": "2019-12-03T10:05:20",
+      "md5hash": "02e896efc46d92d71ed38c2f64ddf3fc",
+      "notes": ""
+    },
+    {
       "version": "7.11.0",
       "filename": "UmbracoCms.7.11.0.zip",
       "filesize": 20428159,
@@ -1302,6 +1382,14 @@
       "filesize": 20433544,
       "date": "2018-09-20T07:46:18",
       "md5hash": "14b77c1e822661e55f0f704918d61610",
+      "notes": ""
+    },
+    {
+      "version": "7.11.3",
+      "filename": "UmbracoCms.7.11.3.zip",
+      "filesize": 20435963,
+      "date": "2019-12-03T10:04:36",
+      "md5hash": "5cef1fd58dd47e752913e2e1ddd5c4bd",
       "notes": ""
     },
     {
@@ -1345,6 +1433,14 @@
       "notes": ""
     },
     {
+      "version": "7.12.5",
+      "filename": "UmbracoCms.7.12.5.zip",
+      "filesize": 20468384,
+      "date": "2019-12-03T11:33:22",
+      "md5hash": "b2acc674fc449cc64091c6c1f6b4e4a5",
+      "notes": ""
+    },
+    {
       "version": "7.13.0",
       "filename": "UmbracoCms.7.13.0.zip",
       "filesize": 26423176,
@@ -1369,11 +1465,27 @@
       "notes": ""
     },
     {
+      "version": "7.13.3",
+      "filename": "UmbracoCms.7.13.3.zip",
+      "filesize": 26429212,
+      "date": "2019-12-03T10:03:48",
+      "md5hash": "f70f251252f45c7a8f6d4d373b27d69a",
+      "notes": ""
+    },
+    {
       "version": "7.14.0",
       "filename": "UmbracoCms.7.14.0.zip",
       "filesize": 26434647,
       "date": "2019-03-11T14:33:50",
       "md5hash": "1ee228d58562b5ff2beaf1841c62aff6",
+      "notes": ""
+    },
+    {
+      "version": "7.14.1",
+      "filename": "UmbracoCms.7.14.1.zip",
+      "filesize": 26438352,
+      "date": "2019-11-20T11:53:08",
+      "md5hash": "351f31683fee3728ade78f07d77d274d",
       "notes": ""
     },
     {

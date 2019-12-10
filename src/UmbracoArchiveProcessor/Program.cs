@@ -112,7 +112,7 @@ namespace UmbracoArchiveProcessor
 
             using (var client = new WebClient())
             {
-                var uri = new Uri(string.Format("http://umbracoreleases.blob.core.windows.net/download/{0}", umbraco_filename));
+                var uri = new Uri(string.Format("https://umbracoreleases.blob.core.windows.net/download/{0}", umbraco_filename));
 
                 //client.DownloadProgressChanged += (s, e) =>
                 //{
@@ -377,7 +377,7 @@ namespace UmbracoArchiveProcessor
 
                 foreach (var associatedFile in associatedFiles)
                 {
-                    associatedFile.MoveTo(Path.Combine(version_dir.FullName, associatedFile.Name));
+                    associatedFile.CopyTo(Path.Combine(version_dir.FullName, associatedFile.Name), true);
                 }
             }
         }
