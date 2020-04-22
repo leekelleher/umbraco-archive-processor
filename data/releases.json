@@ -1695,6 +1695,22 @@
       "date": "2020-03-17T06:43:18",
       "md5hash": "67f957d19780d36cdbc4a707052391db",
       "notes": ""
+    },
+    {
+      "version": "8.6.0",
+      "filename": "UmbracoCms.8.6.0.zip",
+      "filesize": 29797199,
+      "date": "2020-03-19T13:39:22",
+      "md5hash": "3a03cf93a34e22615d8c7dd9e7419d47",
+      "notes": ""
+    },
+    {
+      "version": "8.6.1",
+      "filename": "UmbracoCms.8.6.1.zip",
+      "filesize": 29797519,
+      "date": "2020-04-16T14:43:24",
+      "md5hash": "d352992edbcf2ce8ae0503c9c3e07eb9",
+      "notes": ""
     }
   ]
 }
