@@ -1751,6 +1751,14 @@
       "date": "2020-07-09T08:19:28",
       "md5hash": "6e8fdf2b8e2ea15d3896cfca2c6c57f0",
       "notes": ""
+    },
+    {
+      "version": "8.7.0",
+      "filename": "UmbracoCms.8.7.0.zip",
+      "filesize": 30127177,
+      "date": "2020-09-08T14:39:02",
+      "md5hash": "07cfd8da6e175abe6d790822565de812",
+      "notes": ""
     }
   ]
 }
