@@ -108,7 +108,7 @@
                                             }
                                             @if (new Version(release.Version) > minReleaseNoteVersion && previousRelease != null)
                                             {
-                                                <div><a href="https://our.umbraco.com/download/releases/compare??from=@(previousRelease.Version)&to=@(release.Version)" rel="external">Compare release notes with v@(previousRelease.Version)</a></div>
+                                                <div><a href="https://our.umbraco.com/download/releases/compare?from=@(previousRelease.Version)&to=@(release.Version)" rel="external">Compare release notes with v@(previousRelease.Version)</a></div>
                                             }
                                             @if (new Version(release.Version) > minSourceTaggedVersion && previousRelease != null)
                                             {
