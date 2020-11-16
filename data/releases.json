@@ -1761,11 +1761,27 @@
       "notes": ""
     },
     {
+      "version": "8.6.6",
+      "filename": "UmbracoCms.8.6.6.zip",
+      "filesize": 29803774,
+      "date": "2020-11-05T12:21:02",
+      "md5hash": "63fcb141a9e6268683efac9c4f709230",
+      "notes": ""
+    },
+    {
       "version": "8.7.0",
       "filename": "UmbracoCms.8.7.0.zip",
       "filesize": 30127177,
       "date": "2020-09-08T14:39:02",
       "md5hash": "07cfd8da6e175abe6d790822565de812",
+      "notes": ""
+    },
+    {
+      "version": "8.7.1",
+      "filename": "UmbracoCms.8.7.1.zip",
+      "filesize": 30130269,
+      "date": "2020-11-05T12:39:30",
+      "md5hash": "463cea794be69ec9a7b9cc00637058ce",
       "notes": ""
     },
     {
@@ -1785,11 +1801,27 @@
       "notes": ""
     },
     {
+      "version": "8.8.2",
+      "filename": "UmbracoCms.8.8.2.zip",
+      "filesize": 31018674,
+      "date": "2020-11-05T12:21:00",
+      "md5hash": "630b300ab15d655d578178ab368d2d0e",
+      "notes": ""
+    },
+    {
       "version": "8.9.0",
       "filename": "UmbracoCms.8.9.0.zip",
       "filesize": 31028065,
       "date": "2020-10-25T09:31:26",
       "md5hash": "42f76824d6b919b62c4e20c5b3305485",
+      "notes": ""
+    },
+    {
+      "version": "8.9.1",
+      "filename": "UmbracoCms.8.9.1.zip",
+      "filesize": 31029818,
+      "date": "2020-11-05T13:43:14",
+      "md5hash": "c713d4b7a963833c358eaf3233b3d69f",
       "notes": ""
     }
   ]
