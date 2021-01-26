@@ -39,6 +39,14 @@ namespace UmbracoArchiveProcessor
                 archive_dir.Create();
 
             var latest_version = args.Length > 0 ? args[0] : GetLatestUmbracoVersionNumber();
+
+            if (string.Equals(latest_version, "html", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                GenerateHtmlPage(target_dir);
+                Console.WriteLine("\n\rHTML page re-generated!");
+                Environment.Exit(0);
+            }
+
             var previous_version = args.Length > 1 ? args[1] : string.Empty;
 
             if (string.IsNullOrWhiteSpace(latest_version) == true)
