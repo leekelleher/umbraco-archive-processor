@@ -39,14 +39,16 @@ namespace UmbracoArchiveProcessor
                 archive_dir.Create();
 
             var latest_version = args.Length > 0 ? args[0] : GetLatestUmbracoVersionNumber();
+            var previous_version = args.Length > 1 ? args[1] : string.Empty;
 
-            if (string.IsNullOrWhiteSpace(latest_version))
+            if (string.IsNullOrWhiteSpace(latest_version) == true)
             {
                 Console.WriteLine("Unable to get the latest Umbraco version number.");
                 Environment.Exit(2);
             }
 
-            if (HasUmbracoReleaseAlreadyProcessed(target_path, latest_version))
+            var alreadyProcessed = HasUmbracoReleaseAlreadyProcessed(target_path, latest_version);
+            if (alreadyProcessed == true && string.IsNullOrWhiteSpace(previous_version) == true)
             {
                 Console.WriteLine("Umbraco version has already been processed.");
                 Environment.Exit(2);
@@ -56,13 +58,14 @@ namespace UmbracoArchiveProcessor
 
             DownloadUmbracoReleaseArchive(target_path, umbraco_filename);
 
-            GenerateHashes(target_dir, umbraco_filename);
+            if (alreadyProcessed == false)
+            {
+                GenerateHashes(target_dir, umbraco_filename);
 
-            UpdateArchiveData(target_dir, umbraco_filename);
+                UpdateArchiveData(target_dir, umbraco_filename);
 
-            GetUmbracoAssemblyVersions(target_dir, umbraco_filename);
-
-            var previous_version = args.Length > 1 ? args[1] : string.Empty;
+                GetUmbracoAssemblyVersions(target_dir, umbraco_filename);
+            }
 
             GenerateDiffPatches(target_path, latest_version, previous_version);
 
