@@ -1887,6 +1887,14 @@
       "date": "2021-01-26T08:24:46",
       "md5hash": "55f248c53720597635e9346155ef20a0",
       "notes": ""
+    },
+    {
+      "version": "8.11.1",
+      "filename": "UmbracoCms.8.11.1.zip",
+      "filesize": 30679432,
+      "date": "2021-01-28T11:32:34",
+      "md5hash": "e7b93f6cb19d2a83022383c3facbe0ec",
+      "notes": "Quick patch release, due to NPoco dependency issue."
     }
   ]
 }
