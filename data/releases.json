@@ -1903,6 +1903,14 @@
       "date": "2021-01-28T11:32:34",
       "md5hash": "e7b93f6cb19d2a83022383c3facbe0ec",
       "notes": "Quick patch release, due to NPoco dependency issue."
+    },
+    {
+      "version": "8.12.0",
+      "filename": "UmbracoCms.8.12.0.zip",
+      "filesize": 30738255,
+      "date": "2021-03-04T09:25:10",
+      "md5hash": "17741225af299634a98c9bf0f6ad6fc1",
+      "notes": ""
     }
   ]
 }
