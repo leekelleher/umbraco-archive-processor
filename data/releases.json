@@ -2025,11 +2025,27 @@
       "notes": ""
     },
     {
+      "version": "8.14.2",
+      "filename": "UmbracoCms.8.14.2.zip",
+      "filesize": 30316728,
+      "date": "2021-07-23T12:18:50",
+      "md5hash": "54051ee1242ad6986b323479559bd544",
+      "notes": ""
+    },
+    {
       "version": "8.15.0",
       "filename": "UmbracoCms.8.15.0.zip",
       "filesize": 30604970,
       "date": "2021-07-12T09:33:22",
       "md5hash": "193f4dae681f300606a8ff89a8ea37bd",
+      "notes": ""
+    },
+    {
+      "version": "8.15.1",
+      "filename": "UmbracoCms.8.15.1.zip",
+      "filesize": 30603826,
+      "date": "2021-07-23T12:10:32",
+      "md5hash": "dc825d0456ec266ec136599a6a529802",
       "notes": ""
     }
   ]
