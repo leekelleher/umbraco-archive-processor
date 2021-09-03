@@ -2041,6 +2041,14 @@
       "notes": ""
     },
     {
+      "version": "8.14.4",
+      "filename": "UmbracoCms.8.14.4.zip",
+      "filesize": 30316553,
+      "date": "2021-08-30T09:47:38",
+      "md5hash": "5ea3bccde22567d4b4d72f37f1d1c9a9",
+      "notes": ""
+    },
+    {
       "version": "8.15.0",
       "filename": "UmbracoCms.8.15.0.zip",
       "filesize": 30604970,
@@ -2062,6 +2070,14 @@
       "filesize": 30605569,
       "date": "2021-08-12T13:58:10",
       "md5hash": "72c5c8e2ad0594e2fdc27fd86394f712",
+      "notes": ""
+    },
+    {
+      "version": "8.15.3",
+      "filename": "UmbracoCms.8.15.3.zip",
+      "filesize": 30603448,
+      "date": "2021-08-30T09:46:20",
+      "md5hash": "655503b04b030a9df80501f0dc2d6477",
       "notes": ""
     },
     {
