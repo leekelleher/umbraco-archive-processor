@@ -38,7 +38,14 @@ namespace UmbracoArchiveProcessor
             if (archive_dir.Exists == false)
                 archive_dir.Create();
 
-            var latest_version = args.Length > 0 ? args[0] : GetLatestUmbracoVersionNumber();
+            if (args.Length == 0)
+            {
+                Console.WriteLine("Please specify the Umbraco version number.");
+                Environment.Exit(2);
+            }
+
+            //var latest_version = args.Length > 0 ? args[0] : GetLatestUmbracoVersionNumber();
+            var latest_version = args[0];
 
             if (string.Equals(latest_version, "html", StringComparison.OrdinalIgnoreCase) == true)
             {
@@ -84,22 +91,22 @@ namespace UmbracoArchiveProcessor
             Console.WriteLine("\n\rThank you and goodnight!");
         }
 
-        static string GetLatestUmbracoVersionNumber()
-        {
-            var web = new HtmlWeb();
+        //static string GetLatestUmbracoVersionNumber()
+        //{
+        //    var web = new HtmlWeb();
 
-            var url = "https://our.umbraco.org/download/";
-            var doc = web.Load(url);
+        //    var url = "https://our.umbraco.org/download/";
+        //    var doc = web.Load(url);
 
-            var link = doc.DocumentNode.SelectSingleNode("//a[@id='downloadButton']");
-            var text = link.InnerText;
+        //    var link = doc.DocumentNode.SelectSingleNode("//a[@id='downloadButton']");
+        //    var text = link.InnerText;
 
-            var version_number = text.Replace("Download ", string.Empty);
+        //    var version_number = text.Replace("Download ", string.Empty);
 
-            Console.WriteLine("Latest Umbraco version number: {0}", version_number);
+        //    Console.WriteLine("Latest Umbraco version number: {0}", version_number);
 
-            return version_number;
-        }
+        //    return version_number;
+        //}
 
         static bool HasUmbracoReleaseAlreadyProcessed(string target_path, string latest_version)
         {
