@@ -2190,6 +2190,14 @@
       "filesize": 30692815,
       "date": "2023-03-15T07:46:22",
       "md5hash": "e71fe2dfafa8c43fb3a585055b716f15",
+      "notes": "A medium-severity security patch"
+    },
+    {
+      "version": "8.18.7",
+      "filename": "UmbracoCms.8.18.7.zip",
+      "filesize": 30693303,
+      "date": "2023-03-23T08:24:08",
+      "md5hash": "937f8bbe4f6fa03f409e2f72f4491313",
       "notes": ""
     }
   ]
